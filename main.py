@@ -7,7 +7,7 @@ from picamera import PiCamera
 from aiy.vision.inference import CameraInference
 from aiy.vision.models import face_detection
 
-from myclips.core import generate_filename
+from myclips.core import generate_filename, h264_to_mp4
 
 
 def main():
@@ -16,10 +16,15 @@ def main():
             for result in inference.run():
                 if len(face_detection.get_faces(result)) >= 1:
                     print("face detected!")
-                    video_file = generate_filename(datetime.datetime.now())
-                    camera.start_recording(video_file, format='h264')
+                    h264_file_path = generate_filename(datetime.datetime.now())
+
+                    camera.start_recording(h264_file_path, format='h264')
                     sleep(5)
                     camera.stop_recording()
+
+                    h264_to_mp4(h264_file_path)
+
+                    sleep(1)
 
 
 if __name__ == '__main__':

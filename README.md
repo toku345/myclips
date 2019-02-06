@@ -7,13 +7,31 @@
 
 # Requirement
 
-- [Vison Kit](https://aiyprojects.withgoogle.com/vision/)
+- [Vision Kit](https://aiyprojects.withgoogle.com/vision/)
+- gpac
+
+``` console
+# in Vision Kit(RaspberryPi)
+$ sudo apt-get install -y gpac
+```
 
 # Installation
 
 # Usage
 
 # Development
+
+## Requirement
+
+- Python 3.5.3
+- gpac
+
+``` console
+# in macOS
+$ brew install gpac
+```
+
+## Run test
 
 ``` console
 $ cd /path/to/myclips
