@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
 import datetime
 from time import sleep
+import os
 
 from picamera import PiCamera
 
 from aiy.vision.inference import CameraInference
 from aiy.vision.models import face_detection
 
-from myclips.core import generate_filename, h264_to_mp4
+from myclips.core import (generate_filename, h264_to_mp4,
+                          upload_video_to_slack)
+
+SLACK_TOKEN = os.getenv('SLACK_TOKEN')
+SLACK_CHANNEL_ID = os.getenv('SLACK_CHANNEL_ID')
 
 
 def main():
@@ -22,9 +27,10 @@ def main():
                     sleep(5)
                     camera.stop_recording()
 
-                    h264_to_mp4(h264_file_path)
+                    output_file_path = h264_to_mp4(h264_file_path)
 
-                    sleep(1)
+                    upload_video_to_slack(output_file_path, SLACK_TOKEN,
+                                          SLACK_CHANNEL_ID)
 
 
 if __name__ == '__main__':

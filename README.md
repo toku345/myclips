@@ -9,6 +9,8 @@
 
 - [Vision Kit](https://aiyprojects.withgoogle.com/vision/)
 - gpac
+- [Slack Bot Token](https://slack.com/apps/A0F7YS25R-bots)
+- Slack channel ID
 
 ``` console
 # in Vision Kit(RaspberryPi)
@@ -18,6 +20,14 @@ $ sudo apt-get install -y gpac
 # Installation
 
 # Usage
+
+https://slack.com/apps/A0F7YS25R-bots
+
+
+``` console
+$ cd /path/to/myclips
+$ env SLACK_TOKEN=xxxxx SLACK_CHANNEL_ID=xxxxx python3 main.py
+```
 
 # Development
 

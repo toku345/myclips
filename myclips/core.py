@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import os
 import subprocess
+import requests
+
+SLACK_FILES_UPLOAD_URL = "https://slack.com/api/files.upload"
 
 
 def generate_filename(now):
@@ -21,3 +24,14 @@ def h264_to_mp4(input_file_path):
         return None
     else:
         return output_file_path
+
+
+def upload_video_to_slack(input_file_path, slack_token, channel_id):
+    params = {
+        "token": slack_token,
+        "channels": channel_id
+    }
+    files = {
+        "file": open(input_file_path, 'rb')
+    }
+    requests.post(url=SLACK_FILES_UPLOAD_URL, params=params, files=files)
