@@ -8,6 +8,9 @@ from picamera import PiCamera
 from aiy.vision.inference import CameraInference
 from aiy.vision.models import face_detection
 
+# Earlier AIY Kits Release 2018-08-03
+from aiy.vision.leds import Leds, PrivacyLed
+
 from myclips.core import (generate_filename, h264_to_mp4,
                           upload_video_to_slack)
 
@@ -23,9 +26,12 @@ def main():
                     print("face detected!")
                     h264_file_path = generate_filename(datetime.datetime.now())
 
-                    camera.start_recording(h264_file_path, format='h264')
-                    sleep(5)
-                    camera.stop_recording()
+                    leds = Leds()
+                    with PrivacyLed(leds):
+                        camera.start_recording(h264_file_path, format='h264')
+                        sleep(5)
+                        camera.stop_recording()
+                    leds.reset()
 
                     output_file_path = h264_to_mp4(h264_file_path)
 
